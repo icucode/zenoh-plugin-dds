@@ -9,12 +9,17 @@ FROM rust:slim-buster
 #     - clang
 RUN apt-get update && apt-get -y install g++ cmake git clang wget vim
 RUN apt-get -y install
-COPY . .
+WORKDIR /home/ubuntu
+COPY . /home/ubuntu
 
 RUN rustup update stable
 RUN rustup target add arm-unknown-linux-musleabihf
 RUN rustup target add i586-unknown-linux-musl
 RUN git clone https://github.com/richfelker/musl-cross-make.git
-RUN cd /musl-cross-make && cp config.mak.dist config.make && TARGET=arm-linux-musleabihf make && make install
+
+RUN useradd -u 1000 ubuntu && chown -R ubuntu /home/ubuntu
+USER ubuntu
+CMD ["bash"]
+#RUN cd /musl-cross-make && cp config.mak.dist config.make && TARGET=arm-linux-musleabihf make && make install
 
 #RUN cd zenoh-bridge-dds && cargo install --locked --path .
