@@ -697,7 +697,7 @@ impl<'a> DdsPlugin<'a> {
                                 st,
                                 ddsi_serdata_kind_SDK_DATA,
                                 ptr,
-                                len as u64,
+                                len as usize,
                             );
                             dds_writecdr(dw, fwdp as *mut ddsi_serdata);
                             drop(Vec::from_raw_parts(ptr, len, capacity));
