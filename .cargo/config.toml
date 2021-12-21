@@ -1,0 +1,25 @@
+[target.armv7-unknown-linux-gnueabihf]
+linker = "arm-linux-gnueabihf-gcc"
+
+[target.armv7-unknown-linux-musleabihf]
+linker = "arm-linux-musleabihf-gcc"
+
+[target.armv7-unknown-linux-musleabihf.rt]
+rustc-link-lib = ["static=c"]
+rustc-link-search = ["/usr/local/arm-linux-musleabihf/lib"]
+
+[env]
+BINDGEN_EXTRA_CLANG_ARGS_armv7_unknown_linux_musleabihf = "-I/usr/local/arm-linux-musleabihf/include"
+CFLAGS_armv7_unknown_linux_musleabihf = "-mfpu=neon"
+CXXFLAGS_armv7_unknown_linux_musleabihf = "-mfpu=neon"
+
+BINDGEN_EXTRA_CLANG_ARGS_i686-unknown-linux-musl = "-I/usr/local/i686-linux-musl/include"
+CC_i686-unknown-linux-musl = "i686-linux-gnu-gcc"
+CXX_i686-unknown-linux-musl = "i686-linux-gnu-g++"
+
+[target.i686-unknown-linux-musl]
+linker = "/usr/local/i686-linux-musl/bin/ld.bfd"
+
+[target.i686-unknown-linux-musl.rt]
+rustc-link-lib = ["static=c"]
+rustc-link-search = ["/usr/local/i686-linux-musl/lib"]
